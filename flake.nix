@@ -6,9 +6,10 @@
         nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
         nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
         nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+        nixd.url = "github:nix-community/nixd";
     };
 
-    outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, }:
+    outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, nixd }:
         let
         configuration = { pkgs, config, ... }: {
 # List packages installed in system profile. To search by name, run:
@@ -16,11 +17,8 @@
 
             nixpkgs.config.allowUnfree = true;
             environment.systemPackages = with pkgs; [
-                mkalias
                 aria2
-                ncurses
                 btop
-                gcc
                 cava
                 cloc
                 cmake
@@ -30,6 +28,7 @@
                 ffmpeg
                 ftxui
                 fzf
+                gcc
                 gdb
                 gh
                 git
@@ -37,8 +36,11 @@
                 helix
                 htop
                 lua-language-server
+                mkalias
+                ncurses
                 neofetch
                 neovim
+                nixd
                 pnpm
                 presenterm
                 ripgrep
@@ -52,7 +54,6 @@
                 zls
             ];
             system.primaryUser = "shafti";
-
             homebrew = {
                 enable = true;
                 brews = [
@@ -74,6 +75,7 @@
                 ];
                 onActivation.cleanup = "zap";
             };
+            nixpkgs.overlays = [ nixd.overlays.default ];
 
 # Necessary for using flakes on this system.
             nix.settings.experimental-features = "nix-command flakes";
