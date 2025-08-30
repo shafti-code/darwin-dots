@@ -6,10 +6,10 @@
         nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
         nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
         nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-        nixd.url = "github:nix-community/nixd";
+        # nixd.url = "github:nix-community/nixd";
     };
 
-    outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, nixd }:
+    outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew}:
         let
         configuration = { pkgs, config, ... }: {
 # List packages installed in system profile. To search by name, run:
@@ -75,7 +75,6 @@
                 ];
                 onActivation.cleanup = "zap";
             };
-            nixpkgs.overlays = [ nixd.overlays.default ];
 
 # Necessary for using flakes on this system.
             nix.settings.experimental-features = "nix-command flakes";
