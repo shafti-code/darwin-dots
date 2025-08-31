@@ -17,6 +17,7 @@
 
             nixpkgs.config.allowUnfree = true;
             environment.systemPackages = with pkgs; [
+                home-manager
                 aria2
                 btop
                 cava
