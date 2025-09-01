@@ -6,73 +6,74 @@
         nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
         nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
         nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-        # nixd.url = "github:nix-community/nixd";
+# nixd.url = "github:nix-community/nixd";
     };
 
-    outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew}:
+    outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, ...}:
         let
         configuration = { pkgs, config, ... }: {
 # List packages installed in system profile. To search by name, run:
 # $ nix-env -qaP | grep wget
 
+
             nixpkgs.config.allowUnfree = true;
             environment.systemPackages = with pkgs; [
-                home-manager
-                aria2
-                btop
-                cava
-                cloc
-                cmake
-                curl
-                emacs
-                fastfetch
-                ffmpeg
-                ftxui
-                fzf
-                gcc
-                gdb
-                gh
-                git
-                gnugrep # Homebrew's `grep` is typically GNU grep
-                helix
-                htop
-                lua-language-server
-                mkalias
-                ncurses
-                neofetch
-                neovim
-                nixd
-                pnpm
-                presenterm
-                ripgrep
-                starship
-                tmux
-                tree
-                wget
-                yarn
-                yt-dlp
-                zig
-                zls
-            ];
+                    home-manager
+                    aria2
+                    btop
+                    cava
+                    cloc
+                    cmake
+                    curl
+                    emacs
+                    fastfetch
+                    ffmpeg
+                    ftxui
+                    fzf
+                    gcc
+                    gdb
+                    gh
+                    git
+                    gnugrep # Homebrew's `grep` is typically GNU grep
+                    helix
+                    htop
+                    lua-language-server
+                    mkalias
+                    ncurses
+                    neofetch
+                    neovim
+                    nixd
+                    pnpm
+                    presenterm
+                    ripgrep
+                    starship
+                    tmux
+                    tree
+                    wget
+                    yarn
+                    yt-dlp
+                    zig
+                    zls
+                    ];
             system.primaryUser = "shafti";
             homebrew = {
                 enable = true;
                 brews = [
                     "swiftly"
-                    "typescript-language-server"
+                        "typescript-language-server"
                 ];
                 casks = [
                     "ghostty@tip"
-                    "docker-desktop"
-                    "emacs-app"
-                    "gimp"
-                    "iina"
-                    "keycastr"
-                    "raycast"
-                    "slack"
-                    "spotify"
-                    "vieb"
-                    "vlc"
+                        "docker-desktop"
+                        "emacs-app"
+                        "gimp"
+                        "iina"
+                        "keycastr"
+                        "raycast"
+                        "slack"
+                        "spotify"
+                        "vieb"
+                        "vlc"
                 ];
                 onActivation.cleanup = "zap";
             };
