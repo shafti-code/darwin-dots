@@ -6,7 +6,6 @@
         nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
         nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
         nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-# nixd.url = "github:nix-community/nixd";
     };
 
     outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, ...}:
@@ -18,7 +17,9 @@
 
             nixpkgs.config.allowUnfree = true;
             environment.systemPackages = with pkgs; [
+                    yarn
                     home-manager
+                    python3
                     aria2
                     btop
                     cava
